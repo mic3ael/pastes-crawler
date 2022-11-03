@@ -1,0 +1,25 @@
+SQS
+
+SQS Actions = https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_Operations.html
+ListQueues = http://localhost:4566/?Action=ListQueues
+PurgeQueue = http://localhost:4566/CollectorQueue?Action=PurgeQueue
+Reveive =
+aws sqs receive-message --endpoint-url http://localhost:4566 --region eu-central-1 --queue-url http://localhost:4566/000000000000/collect-queue --attribute-names All --message-attribute-names All --max-number-of-messages 10
+
+Send message
+aws sqs send-message --endpoint-url http://localhost:4566 --queue-url http://localhost:4566/000000000000/collect-queue --region eu-central-1 --profile localstack --message-body "Information about the largest city in Any Region."
+
+
+
+DynamoDB
+
+ADMIN: DYNAMO_ENDPOINT=http://localhost:4566 ./node_modules/dynamodb-admin/bin/dynamodb-admin.js
+aws dynamodb list-tables --endpoint-url http://localhost:4566
+
+
+Information
+https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-exactly-once-processing.html
+
+
+Serverlesss - Local Stack
+https://www.bitovi.com/blog/running-aws-resources-on-localstack
