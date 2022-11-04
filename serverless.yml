@@ -28,7 +28,7 @@ custom:
 functions:
   pastebinCrawler:
     handler: src/crawlers/pastebin/index.run
-    timeout: 60 #sec
+    timeout: 300 #sec
     memorySize: 512
     environment:
       AWS_REGION: ${env:AWS_REGION}
@@ -46,7 +46,7 @@ functions:
       Team: Crawler
   messageConsumer:
     handler: src/consumers/crawler/index.run
-    timeout: 30 #sec
+    timeout: 60 #sec
     memorySize: 512
     name: message-consumer-${sls:stage}
     environment:
