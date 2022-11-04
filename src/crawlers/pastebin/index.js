@@ -48,7 +48,7 @@ async function run() {
     await pastesService.crawl();
     logger.info('index:run -> done');
   } catch (err) {
-    logger.error(`index:run -> ${err.message}`);
+    logger.error(err, `index:run`);
     throw new Error('Something went wrong');
   }
 }

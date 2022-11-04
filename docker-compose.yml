@@ -41,7 +41,7 @@ services:
       - 6379:6379
     command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
     volumes:
-      - cache2:/var/lib/redis/data
+      - cache:/var/lib/redis/data
     networks:
       - crawler
       - cache
@@ -69,5 +69,5 @@ networks:
     driver: bridge
     name: cache
 volumes:
-  cache2:
+  cache:
     driver: local

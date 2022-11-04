@@ -6,7 +6,7 @@ const logger = require('../../../utils/logger');
 async function crawl() {
   try {
     const { dataSources, modules, config } = this;
-    logger.info('service:crawl -> about to cache connect');
+    logger.info('service:crawl -> about to connect cache');
     await dataSources.cacheClient.connect();
     logger.info('service:crawl -> connected');
     logger.info('service:crawl -> about to load pastes');
@@ -37,7 +37,7 @@ async function crawl() {
       return;
     }
 
-    logger.info('service:crawl -> about to load new past');
+    logger.info({ size: newPastes.length }, 'service:crawl -> about to load new past');
     // load past
     const httpPromises = [];
     for (const { id } of newPastes) {
@@ -86,18 +86,18 @@ async function crawl() {
     });
     await dataSources.queueClient.sendBatch(config.queueUrl, messages);
     logger.info('service:crawl -> sent');
-    logger.info('service:crawl -> set cache for new pastes');
+    logger.info('service:crawl -> about to cache new pastes');
     const cacheSetPromises = [];
     for (const { id } of enrichedPastes) {
       cacheSetPromises.push(dataSources.cacheClient.set(id, id));
     }
     await Promise.all(cacheSetPromises); //TODO: throttle, still okay because 8 pastes each run
-    logger.info('service:crawl -> set');
-    logger.info('service:crawl -> about to cache disconnect');
+    logger.info({ size: cacheSetPromises.length }, 'service:crawl -> set');
+    logger.info('service:crawl -> about to disconnect cache');
     await dataSources.cacheClient.disconnect();
     logger.info('service:crawl -> disconnected');
   } catch (err) {
-    logger.error(`service:crawl -> ${err.message}`);
+    logger.error(err, `service:crawl`);
     throw err;
   }
 }

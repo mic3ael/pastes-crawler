@@ -27,7 +27,7 @@ async function run(event) {
     await service.consume(event.Records);
     logger.info('crawler:index -> done');
   } catch (err) {
-    logger.error(`crawler:index -> ${err.message}`);
+    logger.error(err, `crawler:index`);
     throw new Error('Something went wrong');
   }
 }

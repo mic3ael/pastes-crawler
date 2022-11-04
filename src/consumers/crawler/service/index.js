@@ -47,7 +47,7 @@ async function consume(records) {
       logger.info('service:consume -> removed');
     }
   } catch (err) {
-    logger.error(`service:consume -> ${err.message}`);
+    logger.error(err, `service:consume`);
     throw err;
   }
 }
