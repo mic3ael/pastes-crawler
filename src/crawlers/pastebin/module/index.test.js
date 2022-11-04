@@ -1,3 +1,5 @@
+'use strict';
+
 const moduleInit = require('./index');
 
 const MOCK_DATE = 1667591080481;

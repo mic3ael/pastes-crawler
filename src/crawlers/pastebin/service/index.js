@@ -1,7 +1,7 @@
 'use strict';
 
 const { v4: uuidv4 } = require('uuid');
-const logger = require('../../utils/logger');
+const logger = require('../../../utils/logger');
 
 async function crawl() {
   try {
@@ -49,7 +49,7 @@ async function crawl() {
     const pastesSource = [];
     pastHtmls.forEach((pastHtml, index) => {
       const { author, source } = modules.parser.past(pastHtml);
-      const past = pastes[index];
+      const past = newPastes[index];
       pastesSource.push({ source, id: past.id });
       enrichedPastes.push({ ...past, author });
     });
