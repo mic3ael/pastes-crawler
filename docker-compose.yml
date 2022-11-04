@@ -9,7 +9,7 @@ services:
     environment:
       - DEFAULT_REGION=${AWS_REGION}
       - SERVICES=lambda,sqs,dynamodb,s3
-      # - DEBUG=1
+      - DEBUG=1
       # TODO change to docker check network issue
       - LAMBDA_EXECUTOR=local
       # - LAMBDA_REMOTE_DOCKER=true
@@ -34,14 +34,14 @@ services:
     networks:
       - crawler
   redis:
-    image: redis:6.2-alpine
+    image: redis:7.0.5-alpine
     container_name: redis
     restart: always
     ports:
       - 6379:6379
     command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
     volumes:
-      - cache:/var/lib/redis/data
+      - cache2:/var/lib/redis/data
     networks:
       - crawler
       - cache
@@ -69,5 +69,5 @@ networks:
     driver: bridge
     name: cache
 volumes:
-  cache:
+  cache2:
     driver: local

@@ -52,4 +52,5 @@ async function run() {
     throw new Error('Something went wrong');
   }
 }
+
 exports.run = run;

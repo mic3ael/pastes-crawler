@@ -9,7 +9,6 @@ async function crawl() {
     logger.info('service:crawl -> about to cache connect');
     await dataSources.cacheClient.connect();
     logger.info('service:crawl -> connected');
-
     logger.info('service:crawl -> about to load pastes');
 
     // load pastes
@@ -92,7 +91,7 @@ async function crawl() {
     logger.info('service:crawl -> set cache for new pastes');
     const cacheSetPromises = [];
     for (let { id } of enrichedPastes) {
-      cacheGetPromises.push(dataSources.cacheClient.set(id, id));
+      cacheSetPromises.push(dataSources.cacheClient.set(id, id));
     }
     await Promise.all(cacheSetPromises);
     logger.info('service:crawl -> set');

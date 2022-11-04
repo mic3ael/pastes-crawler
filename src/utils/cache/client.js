@@ -1,6 +1,7 @@
 'use strict';
 
 const { createClient } = require('redis');
+const logger = require('../logger');
 
 function connect() {
   return this.connect();
@@ -29,7 +30,9 @@ function genKey(baseKey, key) {
 
 function init(options, config) {
   const client = createClient(options);
-  client.on('error', (err) => logger.error(`cache:client:redis -> ${err.message}`));
+  client.on('error', (err) => logger.error(`cache:client:redis:error -> ${err.message}`));
+  // client.on('connect', () => logger.log('cache:client:redis -> connected'));
+
   return {
     connect: connect.bind(client),
     disconnect: disconnect.bind(client),
