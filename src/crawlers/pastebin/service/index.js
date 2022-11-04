@@ -88,10 +88,10 @@ async function crawl() {
     logger.info('service:crawl -> sent');
     logger.info('service:crawl -> set cache for new pastes');
     const cacheSetPromises = [];
-    for (let { id } of enrichedPastes) {
+    for (const { id } of enrichedPastes) {
       cacheSetPromises.push(dataSources.cacheClient.set(id, id));
     }
-    await Promise.all(cacheSetPromises);
+    await Promise.all(cacheSetPromises); //TODO: throttle, still okay because 8 pastes each run
     logger.info('service:crawl -> set');
     logger.info('service:crawl -> about to cache disconnect');
     await dataSources.cacheClient.disconnect();
