@@ -44,7 +44,7 @@ functions:
     tags:
       Team: Crawler
   messageHandler:
-    handler: src/handlers/index.consume
+    handler: src/consumers/crawler/index.run
     timeout: 30 #sec
     memorySize: 512
     name: message-handler-${sls:stage}

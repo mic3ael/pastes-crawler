@@ -1,3 +1,5 @@
+'use strict';
+
 const { S3 } = require('aws-sdk');
 
 function upload(params) {

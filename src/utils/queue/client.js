@@ -1,3 +1,5 @@
+'use strict';
+
 const { SQS } = require('aws-sdk');
 
 function sendBatch(queueUrl, messages) {

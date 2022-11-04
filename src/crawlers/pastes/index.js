@@ -26,11 +26,11 @@ const httpClient = http(PASTEBIN_URL);
 
 const queueClient = queue();
 
-const pastesModule = moduleInit();
+const parser = moduleInit();
 
 const storageClient = storage();
 
-const pastesService = service({ httpClient, pastesModule, queueClient, storageClient }, { appName: APP_NAME });
+const pastesService = service({ httpClient, queueClient, storageClient }, { parser }, { appName: APP_NAME });
 
 async function run() {
   try {
@@ -39,7 +39,7 @@ async function run() {
     logger.info('index:run -> done');
   } catch (err) {
     logger.error(`index:run -> ${err.message}`);
-    throw new Error('something went wrong check logs');
+    throw new Error('Something went wrong');
   }
 }
 

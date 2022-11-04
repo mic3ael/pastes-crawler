@@ -8,18 +8,18 @@ const PASTES_BUCKET_NAME = process.env.PASTES_BUCKET_NAME;
 
 async function crawl() {
   try {
-    const { dataSources, config } = this;
+    const { dataSources, modules, config } = this;
     logger.info('service:crawl -> about to load pastes');
 
     // load pastes
     const pastesHtml = await dataSources.httpClient.get('/');
-    const pastes = dataSources.pastesModule.pastes(pastesHtml);
+    const pastes = modules.parser.pastes(pastesHtml);
     logger.info('service:crawl -> loaded');
 
     logger.info('service:crawl -> about to load past');
     // load past
     const httpPromises = [];
-    for (let { id } of pastes) {
+    for (const { id } of pastes) {
       httpPromises.push(dataSources.httpClient.get(id));
     }
 
@@ -27,7 +27,7 @@ async function crawl() {
     const enrichedPastes = [];
     const pastesSource = [];
     pastHtmls.forEach((pastHtml, index) => {
-      const { author, source } = dataSources.pastesModule.past(pastHtml);
+      const { author, source } = modules.parser.past(pastHtml);
       const past = pastes[index];
       pastesSource.push({ source, id: past.id });
       enrichedPastes.push({ ...past, author });
@@ -37,7 +37,7 @@ async function crawl() {
 
     logger.info('service:crawl -> about to store pastes source');
     const storagePromises = [];
-    for (let { source, id } of pastesSource) {
+    for (const { source, id } of pastesSource) {
       const key = `${id}.txt`;
       const params = { Bucket: PASTES_BUCKET_NAME, Key: key, Body: source };
       storagePromises.push(dataSources.storageClient.upload(params));
@@ -75,9 +75,10 @@ async function crawl() {
   }
 }
 
-function init(dataSources, config) {
+function init(dataSources, modules, config) {
   const diParams = {
     dataSources,
+    modules,
     config,
   };
 
