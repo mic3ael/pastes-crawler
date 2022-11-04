@@ -7,7 +7,7 @@ services:
       - '4566:4566'
     environment:
       - DEFAULT_REGION=eu-central-1 #TODO: to env
-      - SERVICES=lambda,sqs,dynamodb
+      - SERVICES=lambda,sqs,dynamodb,s3
       - DEBUG=1
       # TODO change to docker check network issue
       - LAMBDA_EXECUTOR=local

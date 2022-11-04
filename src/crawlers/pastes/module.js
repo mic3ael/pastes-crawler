@@ -18,7 +18,7 @@ function pastes(html) {
 
   for (let i = 0; i < length; i++) {
     const a = $(items[i]).find('a');
-    const ref = a.attr('href').substring(1);
+    const id = a.attr('href').substring(1);
     const title = a.text();
     const detailsText = $(items[i]).find('.details').text();
     const details = detailsText.split('|').map((s) => s.trim());
@@ -26,7 +26,7 @@ function pastes(html) {
     const timeSplit = details[1].split(' ');
     const date = moment().subtract(Number(timeSplit[0]), timeMap.get(timeSplit[1])).valueOf();
     const size = details[2];
-    pastes.push({ title, date, type, ref, size });
+    pastes.push({ title, date, type, id, size });
   }
 
   return pastes;
@@ -34,8 +34,8 @@ function pastes(html) {
 
 function past(html) {
   const $ = load(html);
-  const author = $('.username a').text();
-  const source = $('.highlighted-code .source').text();
+  const author = $('.username a').text().trim();
+  const source = $('.highlighted-code .source').text().trim();
   return { author, source };
 }
 

@@ -35,6 +35,8 @@ functions:
       PASTES_URL: ${env:PASTES_URL}
       QUEUE_URL: ${env:QUEUE_URL}
       APP_NAME: ${env:PASTES_APP_NAME}
+      PASTES_BUCKET_NAME: ${env:PASTES_BUCKET_NAME}
+      AWS_ENDPOINT: ${env:AWS_ENDPOINT}
     name: pastes-crawler-${sls:stage}
     events:
       # Invoke Lambda function every 2nd minute
@@ -56,6 +58,10 @@ functions:
       Team: Crawler
 resources:
   Resources:
+    ContentStorage:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${env:PASTES_BUCKET_NAME}
     CollectorQueue:
       Type: AWS::SQS::Queue
       Properties:

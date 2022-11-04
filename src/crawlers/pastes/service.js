@@ -3,39 +3,62 @@
 const { v4: uuidv4 } = require('uuid');
 const logger = require('../../utils/logger');
 
+const QUEUE_URL = process.env.QUEUE_URL;
+const PASTES_BUCKET_NAME = process.env.PASTES_BUCKET_NAME;
+
 async function crawl() {
   try {
     const { dataSources, config } = this;
     logger.info('service:crawl -> about to load pastes');
+
     // load pastes
     const pastesHtml = await dataSources.httpClient.get('/');
-    const pastes = dataSources.module.pastes(pastesHtml);
+    const pastes = dataSources.pastesModule.pastes(pastesHtml);
     logger.info('service:crawl -> loaded');
 
     logger.info('service:crawl -> about to load past');
     // load past
-    const promises = [];
-    for (let { ref } of pastes) {
-      promises.push(dataSources.httpClient.get(ref)); //TODO throttle
+    const httpPromises = [];
+    for (let { id } of pastes) {
+      httpPromises.push(dataSources.httpClient.get(id));
     }
 
-    const pastHtmls = await Promise.all(promises);
-    const enrichedPastes = pastHtmls.map((pastHtml, index) => {
-      const {author, source} = dataSources.module.past(pastHtml);
-      console.log('Row 25: ', source);
-      return { ...pastes[index], author };
+    const pastHtmls = await Promise.all(httpPromises); //TODO: throttle, still okay because 8 pastes each run
+    const enrichedPastes = [];
+    const pastesSource = [];
+    pastHtmls.forEach((pastHtml, index) => {
+      const { author, source } = dataSources.pastesModule.past(pastHtml);
+      const past = pastes[index];
+      pastesSource.push({ source, id: past.id });
+      enrichedPastes.push({ ...past, author });
     });
+
     logger.info('service:crawl -> loaded');
 
+    logger.info('service:crawl -> about to store pastes source');
+    const storagePromises = [];
+    for (let { source, id } of pastesSource) {
+      const key = `${id}.txt`;
+      const params = { Bucket: PASTES_BUCKET_NAME, Key: key, Body: source };
+      storagePromises.push(dataSources.storageClient.upload(params));
+    }
+
+    const uploads = await Promise.all(storagePromises); //TODO: throttle, still okay because 8 pastes each run
+    for (let i = 0; i < uploads.length; i++) {
+      const { Location } = uploads[i];
+      enrichedPastes[i].source = Location;
+    }
+
+    logger.info('service:crawl -> stored');
+
+    logger.info('service:crawl -> about to send messages');
     // message creation
-    const messages = enrichedPastes.map((ePastes) => {
-      const { ref, ...ePastesRest } = ePastes;
-      const id = ref;
+    const messages = enrichedPastes.map((ePast) => {
       return {
         Id: uuidv4(),
-        MessageGroupId: id,
-        MessageBody: JSON.stringify({ ...ePastesRest, id }),
-        MessageDeduplicationId: id,
+        MessageGroupId: ePast.id,
+        MessageBody: JSON.stringify(ePast),
+        MessageDeduplicationId: ePast.id,
         MessageAttributes: {
           src: {
             StringValue: config.appName,
@@ -44,19 +67,18 @@ async function crawl() {
         },
       };
     });
-    logger.info('service:crawl -> about to send messages');
-    await dataSources.queue.sendBatch(messages);
-    logger.info('service:crawl -> sent');
+    await dataSources.queueClient.sendBatch(QUEUE_URL, messages);
+    logger.info('service:crawl -> sent: ');
   } catch (err) {
     logger.error(`service:crawl -> ${err.message}`);
     throw err;
   }
 }
 
-function init(httpClient, module, queue, appName) {
+function init(dataSources, config) {
   const diParams = {
-    dataSources: { httpClient, module, queue },
-    config: { appName },
+    dataSources,
+    config,
   };
 
   return {
