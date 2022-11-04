@@ -23,3 +23,7 @@ https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-
 
 Serverlesss - Local Stack
 https://www.bitovi.com/blog/running-aws-resources-on-localstack
+
+Run locally
+
+AWS_REGION=localhost URL=https://pastebin.com QUEUE_URL=http://localhost:4566/000000000000/collect-queue.fifo APP_NAME=local BUCKET_NAME=bucket AWS_ENDPOINT=http://localhost:4566 CACHE_URL=redis://:eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81@redis:6379 node ./src/crawlers/pastebin/index.js  

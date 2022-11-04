@@ -1,4 +1,4 @@
-service: crawlers
+service: crawlers-${sls:stage}
 frameworkVersion: '~3'
 useDotenv: true
 
@@ -26,31 +26,33 @@ custom:
     networks:
       - localstack
 functions:
-  pastesCrawler:
-    handler: src/crawlers/pastes/index.run
+  pastebinCrawler:
+    handler: src/crawlers/pastebin/index.run
     timeout: 60 #sec
     memorySize: 512
     environment:
       AWS_REGION: ${env:AWS_REGION}
-      PASTES_URL: ${env:PASTES_URL}
+      URL: ${env:PASTEBIN_URL}
       QUEUE_URL: ${env:QUEUE_URL}
-      APP_NAME: ${env:PASTES_APP_NAME}
-      PASTES_BUCKET_NAME: ${env:PASTES_BUCKET_NAME}
+      APP_NAME: ${env:PASTEBIN_APP_NAME}
+      BUCKET_NAME: ${env:PASTEBIN_BUCKET_NAME}
       AWS_ENDPOINT: ${env:AWS_ENDPOINT}
-    name: pastes-crawler-${sls:stage}
+      CACHE_URL: ${env:CACHE_URL}
+    name: pastebin-crawler-${sls:stage}
     events:
       # Invoke Lambda function every 2nd minute
       - schedule: cron(0/1 * ? * * *)
     tags:
       Team: Crawler
-  messageHandler:
+  messageConsumer:
     handler: src/consumers/crawler/index.run
     timeout: 30 #sec
     memorySize: 512
-    name: message-handler-${sls:stage}
+    name: message-consumer-${sls:stage}
     environment:
       AWS_REGION: ${env:AWS_REGION}
       AWS_ENDPOINT: ${env:AWS_ENDPOINT}
+      QUEUE_URL: ${env:QUEUE_URL}
     events:
       - sqs:
           arn: !GetAtt CollectorQueue.Arn
@@ -61,7 +63,7 @@ resources:
     ContentStorage:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: ${env:PASTES_BUCKET_NAME}
+        BucketName: ${env:PASTEBIN_BUCKET_NAME}
     CollectorQueue:
       Type: AWS::SQS::Queue
       Properties:
@@ -82,10 +84,10 @@ resources:
         Tags:
           - Key: Team
             Value: Crawler
-    PastesTable:
+    PastebinTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${env:PASTES_APP_NAME}
+        TableName: ${env:PASTEBIN_APP_NAME}
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S

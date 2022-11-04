@@ -2,13 +2,15 @@
 
 const logger = require('../../utils/logger');
 
+const QUEUE_URL = process.env.QUEUE_URL;
+
 async function consume(records) {
   try {
     const { dataSources } = this;
 
     // map db & records, record can be produced by many sources
     const dbValues = new Map();
-
+    const queueMessagesForDelete = [];
     for (let record of records) {
       const src = record.messageAttributes.src.stringValue;
 
@@ -17,9 +19,9 @@ async function consume(records) {
       }
 
       dbValues.get(src).push({ ...JSON.parse(record.body) });
+      queueMessagesForDelete.push({ ReceiptHandle: record.receiptHandle, Id: record.messageId });
     }
 
-    logger.info('service:consume -> about to save records');
     // create batch write per table source
     for (const [tableName, records] of dbValues) {
       const items = [];
@@ -36,10 +38,14 @@ async function consume(records) {
         },
       };
 
-      await dataSources.db.batchWrite(params);
+      logger.info('service:consume -> about to save records');
+      await dataSources.dbClient.batchWrite(params);
+      logger.info('service:consume -> saved');
+
+      logger.info('service:consume -> about to remove messages from the queue');
+      await dataSources.queueClient.deleteBatch(QUEUE_URL, queueMessagesForDelete);
+      logger.info('service:consume -> removed');
     }
-    //TODO: remove from sqs message
-    logger.info('service:consume -> saved');
   } catch (err) {
     logger.error(`service:consume -> ${err.message}`);
     throw err;

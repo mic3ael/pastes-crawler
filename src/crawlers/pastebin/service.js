@@ -3,12 +3,13 @@
 const { v4: uuidv4 } = require('uuid');
 const logger = require('../../utils/logger');
 
-const QUEUE_URL = process.env.QUEUE_URL;
-const PASTES_BUCKET_NAME = process.env.PASTES_BUCKET_NAME;
-
 async function crawl() {
   try {
     const { dataSources, modules, config } = this;
+    logger.info('service:crawl -> about to cache connect');
+    await dataSources.cacheClient.connect();
+    logger.info('service:crawl -> connected');
+
     logger.info('service:crawl -> about to load pastes');
 
     // load pastes
@@ -16,10 +17,31 @@ async function crawl() {
     const pastes = modules.parser.pastes(pastesHtml);
     logger.info('service:crawl -> loaded');
 
-    logger.info('service:crawl -> about to load past');
+    logger.info('service:crawl -> filter all exists pastes');
+    // check if exist
+    const cacheGetPromises = [];
+    for (let { id } of pastes) {
+      cacheGetPromises.push(dataSources.cacheClient.get(id));
+    }
+
+    const cache = await Promise.all(cacheGetPromises); //TODO: throttle, still okay because 8 pastes each run
+    const newPastes = [];
+
+    for (let i = 0; i < cache.length; i++) {
+      if (cache[i]) continue;
+      newPastes.push(pastes[i]);
+    }
+    logger.info('service:crawl -> filtered');
+
+    if (!newPastes.length) {
+      logger.info('service:crawl -> no new pastes skipping...');
+      return;
+    }
+
+    logger.info('service:crawl -> about to load new past');
     // load past
     const httpPromises = [];
-    for (const { id } of pastes) {
+    for (const { id } of newPastes) {
       httpPromises.push(dataSources.httpClient.get(id));
     }
 
@@ -39,10 +61,9 @@ async function crawl() {
     const storagePromises = [];
     for (const { source, id } of pastesSource) {
       const key = `${id}.txt`;
-      const params = { Bucket: PASTES_BUCKET_NAME, Key: key, Body: source };
+      const params = { Bucket: config.bucketName, Key: key, Body: source };
       storagePromises.push(dataSources.storageClient.upload(params));
     }
-
     const uploads = await Promise.all(storagePromises); //TODO: throttle, still okay because 8 pastes each run
     for (let i = 0; i < uploads.length; i++) {
       const { Location } = uploads[i];
@@ -50,7 +71,6 @@ async function crawl() {
     }
 
     logger.info('service:crawl -> stored');
-
     logger.info('service:crawl -> about to send messages');
     // message creation
     const messages = enrichedPastes.map((ePast) => {
@@ -67,8 +87,18 @@ async function crawl() {
         },
       };
     });
-    await dataSources.queueClient.sendBatch(QUEUE_URL, messages);
-    logger.info('service:crawl -> sent: ');
+    await dataSources.queueClient.sendBatch(config.queueUrl, messages);
+    logger.info('service:crawl -> sent');
+    logger.info('service:crawl -> set cache for new pastes');
+    const cacheSetPromises = [];
+    for (let { id } of enrichedPastes) {
+      cacheGetPromises.push(dataSources.cacheClient.set(id, id));
+    }
+    await Promise.all(cacheSetPromises);
+    logger.info('service:crawl -> set');
+    logger.info('service:crawl -> about to cache disconnect');
+    await dataSources.cacheClient.disconnect();
+    logger.info('service:crawl -> disconnected');
   } catch (err) {
     logger.error(`service:crawl -> ${err.message}`);
     throw err;

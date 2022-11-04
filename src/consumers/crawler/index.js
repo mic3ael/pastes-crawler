@@ -3,6 +3,7 @@
 const AWS = require('aws-sdk');
 const serviceInit = require('./service');
 const dbInit = require('../../utils/db');
+const queueInit = require('../../utils/queue');
 const logger = require('../../utils/logger');
 
 const AWS_REGION = process.env.AWS_REGION;
@@ -16,8 +17,9 @@ AWS.config.update({
   sqs: {},
 });
 
-const db = dbInit();
-const service = serviceInit({ db });
+const dbClient = dbInit();
+const queueClient = queueInit();
+const service = serviceInit({ dbClient, queueClient });
 
 async function run(event) {
   try {

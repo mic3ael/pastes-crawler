@@ -2,13 +2,14 @@ version: '3.8'
 services:
   localstack:
     image: localstack/localstack:1.2.0
+    container_name: localstack
     ports:
       - '4510-4559:4510-4559' # external service port range
       - '4566:4566'
     environment:
-      - DEFAULT_REGION=eu-central-1 #TODO: to env
+      - DEFAULT_REGION=${AWS_REGION}
       - SERVICES=lambda,sqs,dynamodb,s3
-      - DEBUG=1
+      # - DEBUG=1
       # TODO change to docker check network issue
       - LAMBDA_EXECUTOR=local
       # - LAMBDA_REMOTE_DOCKER=true
@@ -22,17 +23,51 @@ services:
       - crawler
   dynamodbAdmin:
     image: aaronshaf/dynamodb-admin:4.5.0
-    ports: 
+    container_name: dynamodbAdmin
+    ports:
       - 8001:8001
     environment:
-      DYNAMO_ENDPOINT: "http://localstack:4566"
-      AWS_REGION: "eu-central-1" #TODO: to env
+      DYNAMO_ENDPOINT: 'http://localstack:4566'
+      AWS_REGION: ${AWS_REGION}
     depends_on:
       - localstack
     networks:
       - crawler
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis
+    restart: always
+    ports:
+      - 6379:6379
+    command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - cache:/var/lib/redis/data
+    networks:
+      - crawler
+      - cache
+  redisCommander:
+    container_name: redisCommander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    depends_on:
+      - redis
+    environment:
+      REDIS_PORT: 6379
+      REDIS_HOST: redis
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    ports:
+      - '8081:8081'
+    networks:
+      - cache
 networks:
   crawler:
     external: false
     driver: bridge
     name: crawler
+  cache:
+    external: false
+    driver: bridge
+    name: cache
+volumes:
+  cache:
+    driver: local

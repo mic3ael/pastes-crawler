@@ -4,7 +4,7 @@ const { DocumentClient } = require('aws-sdk/clients/dynamodb');
 
 function batchWrite(params) {
   const { dynamodb } = this;
-  return dynamodb.batchWrite(params).promise();
+  return dynamodb.batchWrite(params).promise(); //TODO: handle UnprocessedItems
 }
 
 function init(options = {}) {
