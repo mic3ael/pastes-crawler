@@ -1,0 +1,6 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`module past success 1`] = `
+"counter = 0;
+                    console.log(print);"
+`;

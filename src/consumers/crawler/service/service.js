@@ -1,6 +1,6 @@
 'use strict';
 
-const logger = require('../../utils/logger');
+const logger = require('../../../utils/logger');
 
 const QUEUE_URL = process.env.QUEUE_URL;
 
