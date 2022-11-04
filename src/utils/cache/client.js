@@ -31,7 +31,7 @@ function genKey(baseKey, key) {
 function init(options, config) {
   const client = createClient(options);
   client.on('error', (err) => logger.error(`cache:client:redis:error -> ${err.message}`));
-  // client.on('connect', () => logger.log('cache:client:redis -> connected'));
+  client.on('connect', () => logger.log('cache:client:redis -> connected'));
 
   return {
     connect: connect.bind(client),
