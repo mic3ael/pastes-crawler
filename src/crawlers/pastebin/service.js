@@ -75,9 +75,7 @@ async function crawl() {
     const messages = enrichedPastes.map((ePast) => {
       return {
         Id: uuidv4(),
-        MessageGroupId: ePast.id,
         MessageBody: JSON.stringify(ePast),
-        MessageDeduplicationId: ePast.id,
         MessageAttributes: {
           src: {
             StringValue: config.appName,

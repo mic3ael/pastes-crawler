@@ -67,9 +67,7 @@ resources:
     CollectorQueue:
       Type: AWS::SQS::Queue
       Properties:
-        QueueName: collect-queue.fifo
-        FifoQueue: true
-        ContentBasedDeduplication: true
+        QueueName: collect-queue
         Tags:
           - Key: Team
             Value: Crawler
