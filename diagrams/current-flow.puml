@@ -22,11 +22,14 @@ DynamoDB(pastes1Db, "Website 1 table", "pastes metadata")
 MemoryDBforRedis(pastes1Cache, "Redis", "avoid unnecessary update of the content")
 SimpleStorageService(pastes1ContentStorage, "Website content storage", "S3", "source code")
 SimpleQueueService(metadataQueue, "Metadata Queue", "")
+SimpleQueueService(metadataQueueDLQ, "Metadata Queue DLQ", "")
 
-pastes1 <-- pastes1Crawler: 1. crawl
-pastes1Crawler --> pastes1Cache: 2. check is already processed, if so return [ttl: 1 day]
+pastes1 <-- pastes1Crawler: 1. crawl every 2 min
+pastes1Crawler --> pastes1Cache: 2. check is already processed, if so return
 pastes1Crawler --> pastes1ContentStorage: 3. store content(source)
-pastes1Crawler --> metadataQueue: 4. send messages for further process
-metadataQueue --> messageHandler: 5. consume
-messageHandler --> pastes1Db: 6. store metadata
+pastes1Crawler --> metadataQueue: 4. send messages for further processing
+pastes1Crawler --> pastes1Cache: 5. cache the new pastes [ttl: 1 day]
+metadataQueue --> messageHandler: 6. consume
+messageHandler --> pastes1Db: 7. store metadata
+metadataQueue --> metadataQueueDLQ: after three retries
 @enduml

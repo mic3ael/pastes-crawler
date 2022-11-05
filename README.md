@@ -2,7 +2,7 @@
 
 ## Current Flow
 
-![Current flow](https://tinyurl.com/22cl6x4p)<!--[Current flow](./diagrams/current-flow.puml)-->
+![Current flow](https://tinyurl.com/25o6vtbs)<!--[Current flow](./diagrams/current-flow.puml)-->
 
 ## Get Started
 
@@ -45,7 +45,7 @@ yarn test
 
 ## Add more crawlers
 
-![Add more crawlers](https://tinyurl.com/22cmgpfa)<!--[Add more crawlers](./diagrams/next-stage.puml)-->
+![Add more crawlers](https://tinyurl.com/29xm54dh)<!--[Add more crawlers](./diagrams/add-new-crawlers.puml)-->
 
 ### Steps
 
@@ -65,6 +65,7 @@ yarn test
 - [ ] Add E2E tests [gauge](https://gauge.org/)
 - [ ] Fix TODOs in code
 - [ ] Add type declaration files to support TS
+- [ ] Store passwords/secrets in [secrets-manager](https://aws.amazon.com/secrets-manager/)
 
 ## Tools
 
