@@ -51,10 +51,10 @@ yarn test
 
 1. See the project structure & `serverless.yml` file
 2. Add your service (lambda, ec2, ecs, batch)
-3. Add additional services according to requirements
+3. Add additional services according to your requirements (S3, Redis..)
 4. Add to `env.<env>` file the required params
-5. Add new dynamodb table with [serverless framework](https://www.serverless.com/)
-6. Make sure that your service has the right role & policy permissions
+5. Add a new dynamodb table with [serverless framework](https://www.serverless.com/)
+6. Make sure that your service has the right role & policy permissions in the `serverless.yml`
 7. Enjoy :heart:
 
 ## TODO
