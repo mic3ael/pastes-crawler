@@ -21,12 +21,6 @@ chmod +x start.local.sh
 
 5. [Dynamodb UI](http://localhost:8001)
 6. [Redis UI](http://localhost:8002/instance/69acda63-093d-4b44-8127-4399396f9805/browser/?db=0&search=%2A) (can be skipped)
-
-```
-# Connection String
-redis://:eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81@redis:6379
-```
-
 7. Wait for 2-3 minutes, see new pastes
 8. Enjoy :stuck_out_tongue_winking_eye:
 
