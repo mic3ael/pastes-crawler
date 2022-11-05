@@ -40,6 +40,7 @@ chmod +x stop.local.sh
 
 ```
 cd <project root folder>
+yarn
 yarn test
 ```
 
