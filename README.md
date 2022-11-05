@@ -2,7 +2,7 @@
 
 ## Current Flow
 
-![Current flow](https://tinyurl.com/2bet9utc)<!--[Current flow](./diagrams/current-flow.puml)-->
+![Current flow](https://tinyurl.com/27xgyzws)<!--[Current flow](./diagrams/current-flow.puml)-->
 
 ## Get Started
 

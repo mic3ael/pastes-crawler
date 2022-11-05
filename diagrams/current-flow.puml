@@ -31,5 +31,5 @@ pastes1Crawler --> metadataQueue: 4. send messages for further processing
 pastes1Crawler --> pastes1Cache: 5. cache the new pastes [ttl: 1 day]
 metadataQueue --> messageHandler: 6. consume
 messageHandler --> pastes1Db: 7. store metadata
-metadataQueue --> metadataQueueDLQ: after three retries
+metadataQueue --> metadataQueueDLQ: after third retry
 @enduml
