@@ -79,6 +79,10 @@ yarn test
 - [AWS](https://aws.amazon.com)
 - [Docker](https://www.docker.com)
 
+## Nice to know
+- [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
+- [Best practices for working with AWS Lambda functions](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html)
+
 ## Contacts
 
 [![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/michael-horojanski-23b9a493/)
