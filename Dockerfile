@@ -4,7 +4,7 @@ WORKDIR /src
 
 COPY package.json ./
 COPY yarn.lock ./
-RUN yarn global serverless
+RUN yarn global add serverless
 FROM base as local
 ENV NODE_ENV=local
 RUN yarn
