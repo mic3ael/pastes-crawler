@@ -25,7 +25,7 @@ chmod +x start.local.sh
 redis://:eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81@redis:6379 
 ```
 7. [LocalStack Health](http://localhost:4566/health) (can be skipped)
-8. Wait for 2-3 minutes, see the new pastes in dynamodb
+8. Wait for 5-7 minutes, to see the first pastes in [dynamodb](http://localhost:8001)
 9. Enjoy :stuck_out_tongue_winking_eye:
 
 ### Stop
