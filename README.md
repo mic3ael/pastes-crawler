@@ -59,3 +59,4 @@ yarn test
 - [ ] Add unit tests, coverage > 95%
 - [ ] Fix security vulnerability of the `serverless framework` OR use [Terraform](https://www.terraform.io/)
 - [ ] Add right service permissions(role, policy) to `serverless.yml`
+- [ ] Add E2E tests [gauge](https://gauge.org/)
