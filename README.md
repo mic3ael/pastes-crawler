@@ -83,4 +83,4 @@ yarn test
 - [Docker](https://www.docker.com)
 
 ## Contacts
-- [Linkedin](https://www.linkedin.com/in/michael-horojanski-23b9a493)
+[![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/michael-horojanski-23b9a493/)
