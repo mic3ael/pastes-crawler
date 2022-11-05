@@ -22,7 +22,7 @@ chmod +x start.local.sh
 5. [Dynamodb UI](http://localhost:8001)
 6. [Redis UI](http://localhost:8002/instance/69acda63-093d-4b44-8127-4399396f9805/browser/?db=0&search=%2A) (can be skipped)
 7. [LocalStack Health](http://localhost:4566/health) (can be skipped)
-8. Wait for 2-3 minutes, see new pastes
+8. Wait for 2-3 minutes, see the new pastes
 9. Enjoy :stuck_out_tongue_winking_eye:
 
 ### Stop
