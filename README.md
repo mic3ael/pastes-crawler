@@ -61,9 +61,9 @@ yarn test
 
 - [ ] Add unit tests, coverage > 95%
 - [ ] Fix security vulnerability of the `serverless framework` OR use [Terraform](https://www.terraform.io/)
-- [ ] Add right service permissions(role, policy) to `serverless.yml`
+- [x] Add right service permissions(role, policy) to `serverless.yml`
 - [ ] Add E2E tests [gauge](https://gauge.org/)
-- [ ] Fix TODOs in code
+- [ ] Fix TODOs in the code
 - [ ] Add type declaration files to support TS
 - [ ] Store passwords/secrets in [secrets-manager](https://aws.amazon.com/secrets-manager/)
 
