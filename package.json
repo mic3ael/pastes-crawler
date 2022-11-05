@@ -8,7 +8,7 @@
     "build": "serverless webpack --stage ${NODE_ENV}",
     "deploy": "serverless deploy --stage ${NODE_ENV}",
     "watch": "nodemon -w src -e '.*' -x 'yarn build'",
-    "start:local-dev": "yarn deploy:local && yarn watch",
+    "start:local-dev": "yarn deploy && yarn watch",
     "start:local": "yarn build && yarn deploy",
     "test": "jest --coverage"
   },
