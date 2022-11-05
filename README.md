@@ -72,11 +72,11 @@ yarn test
 
 ## Tools
 
-- [Localstack](https://localstack.cloud/)
-- [Serverless Framework] (https://www.serverless.com/)
-- [NodeJS] (https://nodejs.org/en/)
-- [Redis] (https://redis.io/)
-- [Dynamodb Admin] (https://www.npmjs.com/package/dynamodb-admin)
-- [Redis Insight](https://redis.com/redis-enterprise/redis-insight/)
-- [AWS] (https://aws.amazon.com/)
-- [Docker](https://www.docker.com/)
+- [Localstack](https://localstack.cloud)
+- [Serverless Framework](https://www.serverless.com)
+- [NodeJS](https://nodejs.org/en)
+- [Redis](https://redis.io)
+- [Dynamodb Admin](https://www.npmjs.com/package/dynamodb-admin)
+- [Redis Insight](https://redis.com/redis-enterprise/redis-insight)
+- [AWS](https://aws.amazon.com)
+- [Docker](https://www.docker.com)
