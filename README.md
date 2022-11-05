@@ -2,7 +2,7 @@
 
 ## Current Flow
 
-![Current flow](https://tinyurl.com/25o6vtbs)<!--[Current flow](./diagrams/current-flow.puml)-->
+![Current flow](https://tinyurl.com/2bet9utc)<!--[Current flow](./diagrams/current-flow.puml)-->
 
 ## Get Started
 
@@ -45,7 +45,7 @@ yarn test
 
 ## Add more crawlers
 
-![Add more crawlers](https://tinyurl.com/29xm54dh)<!--[Add more crawlers](./diagrams/add-new-crawlers.puml)-->
+![Add more crawlers](https://tinyurl.com/2y42ejxu)<!--[Add more crawlers](./diagrams/add-new-crawlers.puml)-->
 
 ### Steps
 
