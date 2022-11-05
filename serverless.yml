@@ -19,12 +19,12 @@ custom:
       # list of stages for which the plugin should be enabled
       - local
     host: http://localstack # optional - LocalStack host to connect to
+    networks:
+      - crawler
     edgePort: 4566 # optional - LocalStack edge port to connect to
     # lambda:
     #   # Enable this flag to improve performance
     #   mountCode: True
-    networks:
-      - localstack
 functions:
   pastebinCrawler:
     handler: src/crawlers/pastebin/index.run
@@ -39,6 +39,7 @@ functions:
       BUCKET_NAME: ${env:PASTEBIN_BUCKET_NAME}
       AWS_ENDPOINT: ${env:AWS_ENDPOINT}
       CACHE_URL: ${env:CACHE_URL}
+      BUCKET_BASE_URL: ${env:PASTEBIN_BUCKET_BASE_URL}
     name: pastebin-crawler-${sls:stage}
     events:
       # Invoke Lambda function every 2nd minute
@@ -66,6 +67,7 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${env:PASTEBIN_BUCKET_NAME}
+        AccessControl: PublicRead
     CollectorQueue:
       Type: AWS::SQS::Queue
       Properties:

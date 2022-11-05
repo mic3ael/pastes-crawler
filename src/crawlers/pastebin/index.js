@@ -16,6 +16,7 @@ const AWS_ENDPOINT = process.env.AWS_ENDPOINT;
 const CACHE_URL = process.env.CACHE_URL;
 const QUEUE_URL = process.env.QUEUE_URL;
 const PASTES_BUCKET_NAME = process.env.BUCKET_NAME;
+const PASTES_BUCKET_BASE_URL = process.env.BUCKET_BASE_URL;
 
 AWS.config.update({
   region: AWS_REGION,
@@ -39,7 +40,7 @@ const cacheClient = cacheInit({ url: CACHE_URL }, { appName: APP_NAME });
 const pastesService = service(
   { httpClient, queueClient, storageClient, cacheClient },
   { parser },
-  { appName: APP_NAME, queueUrl: QUEUE_URL, bucketName: PASTES_BUCKET_NAME }
+  { appName: APP_NAME, queueUrl: QUEUE_URL, bucketName: PASTES_BUCKET_NAME, bucketBaseUrl: PASTES_BUCKET_BASE_URL }
 );
 
 async function run() {

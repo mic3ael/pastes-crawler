@@ -65,11 +65,11 @@ async function crawl() {
     }
     const uploads = await Promise.all(storagePromises); //TODO: throttle, still okay because 8 pastes each run
     for (let i = 0; i < uploads.length; i++) {
-      const { Location } = uploads[i];
-      enrichedPastes[i].source = Location;
+      const { Location, key, Bucket } = uploads[i];
+      enrichedPastes[i].source = config.bucketBaseUrl ? `${config.bucketBaseUrl}/${Bucket}/${key}` : Location;
     }
 
-    logger.info('service:crawl -> stored');
+    logger.info({ size: uploads.length }, 'service:crawl -> stored');
     logger.info('service:crawl -> about to send messages');
     // message creation
     const messages = enrichedPastes.map((ePast) => {
