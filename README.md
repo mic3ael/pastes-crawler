@@ -23,7 +23,7 @@ chmod +x start.local.sh
 # Connection String
 redis://:eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81@redis:6379
 ```
-7. Wait for 2-3 minutes see new pastes
+7. Wait for 2-3 minutes, see new pastes
 8. Enjoy :stuck_out_tongue_winking_eye:
 
 ### Stop
