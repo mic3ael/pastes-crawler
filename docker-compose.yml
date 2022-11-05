@@ -9,7 +9,7 @@ services:
     environment:
       - DEFAULT_REGION=${AWS_REGION}
       - SERVICES=lambda,sqs,dynamodb,s3
-      - DEBUG=1
+      # - DEBUG=1
       - LAMBDA_EXECUTOR=docker
       - LAMBDA_REMOTE_DOCKER=true
       - LAMBDA_REMOVE_CONTAINERS=true
