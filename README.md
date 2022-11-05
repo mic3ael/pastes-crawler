@@ -69,6 +69,7 @@ yarn test
 - [ ] Add right service permissions(role, policy) to `serverless.yml`
 - [ ] Add E2E tests [gauge](https://gauge.org/)
 - [ ] Fix TODOs in code
+- [ ] Add type declaration files to support TS
 
 ## Tools
 
