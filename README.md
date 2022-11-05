@@ -2,7 +2,7 @@
 
 ## Current Flow
 
-![Current flow](https://tinyurl.com/2afu93hz)<!--[Current flow](./diagrams/current-flow.puml)-->
+![Current flow](https://tinyurl.com/22cl6x4p)<!--[Current flow](./diagrams/current-flow.puml)-->
 
 ## Get Started
 
@@ -22,7 +22,7 @@ chmod +x start.local.sh
 5. [Dynamodb UI](http://localhost:8001)
 6. [Redis UI](http://localhost:8002/instance/69acda63-093d-4b44-8127-4399396f9805/browser/?db=0&search=%2A) (can be skipped)
 7. [LocalStack Health](http://localhost:4566/health) (can be skipped)
-8. Wait for 2-3 minutes, see the new pastes
+8. Wait for 2-3 minutes, see the new pastes in dynamodb
 9. Enjoy :stuck_out_tongue_winking_eye:
 
 ### Stop
@@ -45,7 +45,7 @@ yarn test
 
 ## Add more crawlers
 
-![Add more crawlers](https://tinyurl.com/28ar2r7l)<!--[Add more crawlers](./diagrams/next-stage.puml)-->
+![Add more crawlers](https://tinyurl.com/22cmgpfa)<!--[Add more crawlers](./diagrams/next-stage.puml)-->
 
 ### Steps
 
