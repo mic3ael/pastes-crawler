@@ -38,12 +38,12 @@ services:
     restart: always
     ports:
       - 6379:6379
-    command: redis-server --save 60 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
+    entrypoint: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD} --maxmemory 512mb --maxmemory-policy allkeys-lru
     networks:
       - crawler
       - cache
     volumes:
-      - cache:/var/lib/redis/data
+      - ./volume/redis:/var/lib/redis/data
   redisinsight:
     image: redislabs/redisinsight:1.13.1
     container_name: crawlers_redisinsight
@@ -76,8 +76,4 @@ networks:
   cache:
     external: false
     driver: bridge
-    name: crawler_cache
-volumes:
-  cache:
-    driver: local
     name: crawler_cache
