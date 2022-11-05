@@ -41,7 +41,7 @@ functions:
     name: pastebin-crawler-${sls:stage}
     events:
       # Invoke Lambda function every 2nd minute
-      - schedule: cron(0/1 * ? * * *)
+      - schedule: cron(0/2 * ? * * *)
     tags:
       Team: Crawler
   messageConsumer:
