@@ -4,7 +4,6 @@ WORKDIR /src
 
 COPY package.json ./
 COPY yarn.lock ./
-COPY .npmrc ./
 
 FROM base as local
 ENV NODE_ENV=local
