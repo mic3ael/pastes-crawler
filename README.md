@@ -8,7 +8,7 @@
 
 ### Start
 
-1. Install [Docker](https://www.docker.com/)
+1. Install [Docker](https://www.docker.com/) & `docker-compose`
 2. Make sure you have there enough space for extra images & containers
 3. Clone the project
 4. Open command line(Terminal)
