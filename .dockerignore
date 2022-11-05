@@ -4,3 +4,8 @@ npm-debug.log
 volume
 diagrams
 coverage
+docker-compose.yml
+Dockerfile
+start.local.sh
+stop.local.sh
+.gitignore

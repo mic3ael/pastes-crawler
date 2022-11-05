@@ -29,7 +29,7 @@ functions:
   pastebinCrawler:
     handler: src/crawlers/pastebin/index.run
     timeout: 100 #sec
-    memorySize: 512
+    memorySize: 256
     role: pastebinCrawlerManagedRole
     environment:
       AWS_REGION: ${env:AWS_REGION}
@@ -47,9 +47,10 @@ functions:
       Team: Crawler
   messageConsumer:
     handler: src/consumers/crawler/index.run
-    timeout: 60 #sec
-    memorySize: 256
+    timeout: 30 #sec
+    memorySize: 128
     name: message-consumer-${sls:stage}
+    role: messageConsumerManagedRole
     environment:
       AWS_REGION: ${env:AWS_REGION}
       AWS_ENDPOINT: ${env:AWS_ENDPOINT}
@@ -137,4 +138,42 @@ resources:
                 - Effect: 'Allow'
                   Action:
                     - 'sqs:SendMessage'
+                  Resource: !GetAtt CollectorQueue.Arn
+    messageConsumerManagedRole:
+      Type: AWS::IAM::Role
+      Properties:
+        RoleName: message-consumer-managed-role-${sls:stage}
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:
+          - PolicyName: message-consumer-managed-policy-${sls:stage}
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - logs:CreateLogGroup
+                    - logs:CreateLogStream
+                    - logs:PutLogEvents
+                  Resource:
+                    - 'Fn::Join':
+                        - ':'
+                        - - 'arn:aws:logs'
+                          - Ref: 'AWS::Region'
+                          - Ref: 'AWS::AccountId'
+                          - 'log-group:/aws/lambda/*:*:*'
+                - Effect: 'Allow'
+                  Action:
+                    - 'sqs:DeleteMessage'
+                    - 'sqs:ReceiveMessage'
+                  Resource: !GetAtt CollectorQueue.Arn
+                - Effect: 'Allow'
+                  Action:
+                    - 'dynamodb:BatchWriteItem'
                   Resource: !GetAtt CollectorQueue.Arn
