@@ -79,7 +79,7 @@ yarn test
 - [AWS](https://aws.amazon.com)
 - [Docker](https://www.docker.com)
 - [PlantUML](https://github.com/awslabs/aws-icons-for-plantuml)
-- [Puml-for-markdown](https://github.com/danielyaa5/puml-for-markdown)
+- [Puml For Markdown](https://github.com/danielyaa5/puml-for-markdown)
 
 ## Nice to know
 - [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
