@@ -81,3 +81,6 @@ yarn test
 - [Dynamodb Admin](https://www.npmjs.com/package/dynamodb-admin)
 - [AWS](https://aws.amazon.com)
 - [Docker](https://www.docker.com)
+
+## Contacts
+- [Linkedin](https://www.linkedin.com/in/michael-horojanski-23b9a493)
