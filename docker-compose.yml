@@ -2,7 +2,7 @@ version: '3.8'
 services:
   localstack:
     image: localstack/localstack:1.2.0
-    container_name: localstack
+    container_name: crawlers_localstack
     ports:
       - '4510-4559:4510-4559' # external service port range
       - '4566:4566'
@@ -22,7 +22,7 @@ services:
       - crawler
   dynamodbAdmin:
     image: aaronshaf/dynamodb-admin:4.5.0
-    container_name: dynamodbAdmin
+    container_name: crawlers_dynamodbAdmin
     ports:
       - 8001:8001
     environment:
@@ -34,19 +34,19 @@ services:
       - crawler
   redis:
     image: redis:7.0.5-alpine
-    container_name: redis
+    container_name: crawlers_redis
     restart: always
     ports:
       - 6379:6379
-    command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
-    volumes:
-      - ./volume/redis:/var/lib/redis/data
+    command: redis-server --save 60 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
     networks:
       - crawler
       - cache
+    volumes:
+      - cache:/var/lib/redis/data
   redisinsight:
     image: redislabs/redisinsight:1.13.1
-    container_name: redisinsight
+    container_name: crawlers_redisinsight
     depends_on:
       - redis
     ports:
@@ -59,7 +59,7 @@ services:
     build:
       context: ./
       target: local
-    container_name: crawlers
+    container_name: crawlers_crawlers
     restart: always
     depends_on:
       - localstack
@@ -76,7 +76,8 @@ networks:
   cache:
     external: false
     driver: bridge
-    name: cache
+    name: crawler_cache
 volumes:
   cache:
     driver: local
+    name: crawler_cache
