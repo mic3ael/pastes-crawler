@@ -1,0 +1,46 @@
+@startuml Current Flow
+
+!define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v14.0/dist
+!include AWSPuml/AWSCommon.puml
+
+' Uncomment the following line to create simplified view
+' !include AWSPuml/AWSSimplified.puml
+
+!include AWSPuml/Compute/Lambda.puml
+!include AWSPuml/Database/DynamoDB.puml
+!include AWSPuml/Database/MemoryDBforRedis.puml
+!include AWSPuml/ApplicationIntegration/SimpleQueueService.puml
+!include AWSPuml/Storage/SimpleStorageService.puml
+!include AWSPuml/General/Documents.puml
+
+left to right direction
+
+Documents(pastes1, "Website 1", "pastes")
+
+Lambda(pastes1Crawler, "Crawler1", "crawl website 1")
+Lambda(pastes2Crawler, "Crawler2", "crawl website 2")
+Lambda(pastes3Crawler, "Crawler3", "crawl website 3")
+Lambda(messageHandler, "Message Handler", "metadata")
+DynamoDB(pastes1Db, "Website [N]th table", "pastes metadata")
+MemoryDBforRedis(pastes1Cache, "Redis", "avoid update of content")
+SimpleStorageService(pastes1ContentStorage, "Website content storage", "S3", "source code")
+SimpleQueueService(metadataQueue, "Metadata Queue", "")
+
+Documents(pastes2, "Website 2", "pastes")
+Documents(pastes3, "Website 3", "pastes")
+
+pastes1 <-- pastes1Crawler: 1. crawl
+pastes1Crawler --> pastes1Cache: 2. check is already processed if so return ttl 1 day
+pastes1Crawler --> pastes1ContentStorage: 3. store content(source)
+pastes1Crawler --> metadataQueue: 4. send an message for further processing
+metadataQueue --> messageHandler: supports all crawlers just pass [src] field
+messageHandler --> pastes1Db: pass the metadata to [N]th db(make sure that you create a new table with serverless)
+
+pastes2 <-- pastes2Crawler: crawl
+pastes2Crawler --> metadataQueue: do some stuff according to the requirements (s3, redis..)
+
+pastes3 <-- pastes3Crawler: crawl
+pastes3Crawler --> metadataQueue: do some stuff according to the requirements (s3, redis..)
+
+
+@enduml

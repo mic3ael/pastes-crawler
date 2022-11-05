@@ -85,7 +85,7 @@ async function crawl() {
       };
     });
     await dataSources.queueClient.sendBatch(config.queueUrl, messages);
-    logger.info('service:crawl -> sent');
+    logger.info({ size: messages.length }, 'service:crawl -> sent');
     logger.info('service:crawl -> about to cache new pastes');
     const cacheSetPromises = [];
     for (const { id } of enrichedPastes) {

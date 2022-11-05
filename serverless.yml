@@ -18,7 +18,7 @@ custom:
     stages:
       # list of stages for which the plugin should be enabled
       - local
-    host: http://localhost # optional - LocalStack host to connect to
+    host: http://localstack # optional - LocalStack host to connect to
     edgePort: 4566 # optional - LocalStack edge port to connect to
     # lambda:
     #   # Enable this flag to improve performance

@@ -17,8 +17,7 @@ services:
       - DATA_DIR=/tmp/localstack/data
       - DOCKER_HOST=unix:///var/run/docker.sock
     volumes:
-      # - ./init-scripts:/docker-entrypoint-initaws.d
-      - /var/run/docker.sock:/var/run/docker.sock
+      - ./volume/localstack:/var/run/docker.sock
     networks:
       - crawler
   dynamodbAdmin:
@@ -41,24 +40,34 @@ services:
       - 6379:6379
     command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
     volumes:
-      - cache:/var/lib/redis/data
+      - ./volume/redis:/var/lib/redis/data
     networks:
       - crawler
       - cache
-  redisCommander:
-    container_name: redisCommander
-    image: rediscommander/redis-commander:latest
-    restart: always
+  redisinsight:
+    image: redislabs/redisinsight:1.13.1
+    container_name: redisinsight
     depends_on:
       - redis
-    environment:
-      REDIS_PORT: 6379
-      REDIS_HOST: redis
-      REDIS_PASSWORD: ${REDIS_PASSWORD}
     ports:
-      - '8081:8081'
+      - '8002:8001'
+    volumes:
+      - ./volume/redisinsight:/db
     networks:
       - cache
+  crawlers:
+    build:
+      context: ./
+      target: local
+    container_name: crawlers
+    restart: always
+    depends_on:
+      - localstack
+      - redis
+    volumes:
+      - .:/src
+    networks:
+      - crawler
 networks:
   crawler:
     external: false

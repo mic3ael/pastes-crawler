@@ -5,11 +5,11 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "build": "serverless webpack --stage local",
-    "local": "./node_modules/serverless/bin/serverless.js offline start --stage local",
-    "deploy": "serverless deploy --stage local",
-    "watch": "nodemon -w src -e '.*' -x 'npm run build'",
-    "start": "npm run deploy && npm run watch",
+    "build": "serverless webpack --stage ${NODE_ENV}",
+    "deploy": "serverless deploy --stage ${NODE_ENV}",
+    "watch": "nodemon -w src -e '.*' -x 'yarn build'",
+    "start:local-dev": "yarn deploy:local && yarn watch",
+    "start:local": "yarn build && yarn deploy",
     "test": "jest"
   },
   "dependencies": {
@@ -25,10 +25,10 @@
     "uuid": "~9.0.0"
   },
   "devDependencies": {
-    "eslint": "^8.26.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "jest": "^29.2.2",
+    "eslint": "~8.26.0",
+    "eslint-config-prettier": "~8.5.0",
+    "eslint-plugin-prettier": "~4.2.1",
+    "jest": "~29.2.2",
     "nodemon": "~2.0.20",
     "serverless": "~3.24.1",
     "serverless-localstack": "~1.0.1",
@@ -36,6 +36,6 @@
     "webpack": "~5.74.0"
   },
   "engines": {
-    "node": "~16.16.0"
+    "node": "<=16.18.0"
   }
 }

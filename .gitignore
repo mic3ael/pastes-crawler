@@ -1,4 +1,7 @@
 node_modules
 .serverless
 .webpack
-./cache
+init-scripts
+test-scripts
+.npmrc
+volume
