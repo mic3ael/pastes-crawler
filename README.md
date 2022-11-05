@@ -8,12 +8,12 @@
 ## Get Started
 ### Start
 
-1. Install docker
-2. Make sure you have there enough space
+1. Install [Docker](https://www.docker.com/)
+2. Make sure you have there enough space for extra images & containers
 3. Clone the project
-4. Open command line
+4. Open command line(Terminal)
 ```
-cd <project root folder>
+cd <root project folder>
 chmod +x start.local.sh
 ./start.local.sh
 ```
@@ -28,7 +28,7 @@ redis://:eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81@redis:6379
 
 ### Stop
 ```
-cd <project root folder>
+cd <root project folder>
 chmod +x stop.local.sh
 ./stop.local.sh
 ```
