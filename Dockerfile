@@ -1,12 +1,15 @@
-FROM node:16.18-alpine3.16 as base
+FROM node:16.18-alpine3.16
 
-WORKDIR /src
+# Create app directory
+WORKDIR /usr/src/app
+RUN adduser -S app
 
 COPY package.json ./
 COPY yarn.lock ./
-RUN yarn global add serverless
-FROM base as local
-ENV NODE_ENV=local
 RUN yarn
-COPY . /
+
+COPY . .
+RUN chown -R app /usr/src/app
+ENV NODE_ENV=local
+USER app
 CMD ["yarn", "start:local"]

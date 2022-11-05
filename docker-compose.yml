@@ -57,7 +57,6 @@ services:
   crawlers:
     build:
       context: ./
-      target: local
     container_name: crawlers_crawlers
     restart: always
     depends_on:
