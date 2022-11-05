@@ -33,6 +33,8 @@ chmod +x stop.local.sh
 ./stop.local.sh
 ```
 ### Unit Test
+1. Install [yarn](https://yarnpkg.com/) 
+2. 
 ```
 cd <project root folder>
 yarn test

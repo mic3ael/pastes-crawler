@@ -10,7 +10,7 @@
     "watch": "nodemon -w src -e '.*' -x 'yarn build'",
     "start:local-dev": "yarn deploy:local && yarn watch",
     "start:local": "yarn build && yarn deploy",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "dependencies": {
     "aws-sdk": "~2.1244.0",
