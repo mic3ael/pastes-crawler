@@ -76,7 +76,7 @@ yarn test
 - [Serverless Framework](https://www.serverless.com)
 - [NodeJS](https://nodejs.org/en)
 - [Redis](https://redis.io)
-- [Dynamodb Admin](https://www.npmjs.com/package/dynamodb-admin)
 - [Redis Insight](https://redis.com/redis-enterprise/redis-insight)
+- [Dynamodb Admin](https://www.npmjs.com/package/dynamodb-admin)
 - [AWS](https://aws.amazon.com)
 - [Docker](https://www.docker.com)
