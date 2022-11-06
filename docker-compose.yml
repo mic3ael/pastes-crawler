@@ -62,8 +62,6 @@ services:
     depends_on:
       - localstack
       - redis
-    volumes:
-      - .:/src
     networks:
       - crawler
 networks:
