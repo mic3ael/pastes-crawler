@@ -11,7 +11,7 @@ services:
       - SERVICES=lambda,sqs,dynamodb,s3
       # - DEBUG=1
       - LAMBDA_EXECUTOR=docker
-      - LAMBDA_REMOTE_DOCKER=true
+      # - LAMBDA_REMOTE_DOCKER=true
       - LAMBDA_REMOVE_CONTAINERS=true
       - DATA_DIR=/tmp/localstack/data
       - DOCKER_HOST=unix:///var/run/docker.sock

@@ -23,7 +23,7 @@ chmod +x start.local.sh
 redis://:eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81@redis:6379 
 ```
 6. [LocalStack Health](http://localhost:4566/health) (can be skipped)
-7. Take a :tea: break for 3-5 minutes, to see the first pastes in [Dynamodb UI](http://localhost:8001)
+7. Take a :tea: break for 7 minutes, to see the first pastes in [Dynamodb UI](http://localhost:8001)
 8. Enjoy :stuck_out_tongue_winking_eye:
 
 ### Stop
