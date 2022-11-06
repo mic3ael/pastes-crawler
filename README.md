@@ -18,15 +18,13 @@ cd <root project folder>
 chmod +x start.local.sh
 ./start.local.sh
 ```
-
-5. [Dynamodb UI](http://localhost:8001)
-6. [Redis UI](http://localhost:8002) (can be skipped)
+5. [Redis UI](http://localhost:8002) (can be skipped)
 ```
 redis://:eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81@redis:6379 
 ```
-7. [LocalStack Health](http://localhost:4566/health) (can be skipped)
-8. Wait for 5-10 minutes, to see the first pastes in [dynamodb](http://localhost:8001)
-9. Enjoy :stuck_out_tongue_winking_eye:
+6. [LocalStack Health](http://localhost:4566/health) (can be skipped)
+7. Wait for 5-10 minutes, to see the first pastes in [Dynamodb UI](http://localhost:8001)
+8. Enjoy :stuck_out_tongue_winking_eye:
 
 ### Stop
 
