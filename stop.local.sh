@@ -1,1 +1,1 @@
-docker-compose --env-file .env.local down
+docker-compose --env-file .env.local down --rmi all --volumes
