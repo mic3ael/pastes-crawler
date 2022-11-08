@@ -2,15 +2,12 @@
 
 const logger = require('../../../utils/logger');
 
-const QUEUE_URL = process.env.QUEUE_URL;
-
 async function consume(records) {
   try {
     const { dataSources } = this;
 
     // map db & records, record can be produced by many sources
     const dbValues = new Map();
-    const queueMessagesForDelete = [];
     for (let record of records) {
       const src = record.messageAttributes.src.stringValue;
 
@@ -19,7 +16,6 @@ async function consume(records) {
       }
 
       dbValues.get(src).push({ ...JSON.parse(record.body) });
-      queueMessagesForDelete.push({ ReceiptHandle: record.receiptHandle, Id: record.messageId });
     }
 
     // create batch write per table source
@@ -41,10 +37,6 @@ async function consume(records) {
       logger.info('service:consume -> about to save records');
       await dataSources.dbClient.batchWrite(params);
       logger.info('service:consume -> saved');
-
-      logger.info('service:consume -> about to remove messages from the queue');
-      await dataSources.queueClient.deleteBatch(QUEUE_URL, queueMessagesForDelete);
-      logger.info('service:consume -> removed');
     }
   } catch (err) {
     logger.error(err, `service:consume`);

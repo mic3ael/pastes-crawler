@@ -55,7 +55,6 @@ functions:
     environment:
       AWS_REGION: ${env:AWS_REGION}
       AWS_ENDPOINT: ${env:AWS_ENDPOINT}
-      QUEUE_URL: ${env:QUEUE_URL}
     events:
       - sqs:
           arn: !GetAtt CollectorQueue.Arn
