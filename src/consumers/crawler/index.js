@@ -31,4 +31,5 @@ async function run(event) {
     throw new Error('Something went wrong');
   }
 }
+
 exports.run = run;
