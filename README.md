@@ -5,15 +5,15 @@ Pastecrawler is an innovative solution designed to efficiently crawl and capture
 
 ### Key Features:
 
-- Paste Crawling: Pastecrawler adeptly scrapes pastes from diverse platforms and sources, ensuring comprehensive coverage.
-- Serverless Architecture: By leveraging serverless computing, Pastecrawler guarantees automatic scalability, minimizing operational complexities and reducing costs.
-- Infrastructure as Code (IaC): The entire infrastructure setup, including AWS resources, event triggers, S3 buckets, and DynamoDB tables, is defined and provisioned using IaC tools such as AWS CloudFormation or Terraform.
-- Amazon S3 Integration: Captured paste content is securely stored in Amazon S3, allowing easy access, retrieval, and analysis.
-- DynamoDB Metadata: Metadata linked to each paste, including source information, timestamps, and other relevant details, is structured and stored in DynamoDB for efficient retrieval.
-- Event-Driven System: The project embraces an event-driven approach, processing paste captures and storage through event triggers, ensuring a highly responsive system.
-- Caching Mechanism: An intelligent caching mechanism efficiently manages duplicate pastes, optimizing storage and retrieval operations.
-- Scalability and Performance: Pastecrawler is designed to manage substantial paste volumes while maintaining high performance and responsiveness.
-- Configuration and Customization: The system offers easy configuration of sources to crawl, storage settings, and event triggers to align with specific requirements.
+- **Paste Crawling**: Pastecrawler adeptly scrapes pastes from diverse platforms and sources, ensuring comprehensive coverage.
+- **Serverless Architecture**: By leveraging serverless computing, Pastecrawler guarantees automatic scalability, minimizing operational complexities and reducing costs.
+- **Infrastructure as Code (IaC)**: The entire infrastructure setup, including AWS resources, event triggers, S3 buckets, and DynamoDB tables, is defined and provisioned using IaC tools such as AWS CloudFormation or Terraform.
+- **Amazon S3 Integration**: Captured paste content is securely stored in Amazon S3, allowing easy access, retrieval, and analysis.
+- **DynamoDB Metadata**: Metadata linked to each paste, including source information, timestamps, and other relevant details, is structured and stored in DynamoDB for efficient retrieval.
+- **Event-Driven System**: The project embraces an event-driven approach, processing paste captures and storage through event triggers, ensuring a highly responsive system.
+- **Caching Mechanism**: An intelligent caching mechanism efficiently manages duplicate pastes, optimizing storage and retrieval operations.
+- **Scalability and Performance**: Pastecrawler is designed to manage substantial paste volumes while maintaining high performance and responsiveness.
+- **Configuration and Customization**: The system offers easy configuration of sources to crawl, storage settings, and event triggers to align with specific requirements.
 
 ## Current Flow
 
