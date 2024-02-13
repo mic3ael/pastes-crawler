@@ -16,8 +16,7 @@ Pastecrawler is an innovative solution designed to efficiently crawl and capture
 - **Configuration and Customization**: The system offers easy configuration of sources to crawl, storage settings, and event triggers to align with specific requirements.
 
 ## Current Flow
-
-![Current flow]([https://tinyurl.com/27xgyzws](https://www.plantuml.com/plantuml/svg/ZLJRRjGm47tFLqpxGYir2TiMa2A4UecuIAr4MQ4-81wSUBAnSEp8brtjtpFEZOHkAI-xzioSupF7urnPnuppZOHRRmmg1n-btaNH4STAA8Jhn_NNaAsTQssMfeRjaermjI-yHLDgvGYJbBf9sSvALjZm7mjAsBZI9cubKu4-tQukazSf5zP5HqALqlE9FAN_MzqqMYKjRQFe5NnNHDa4EQv6gBGaKK9jG0PDJaDfa3a4AvfMYaeWXwt07G4FSQ-dge7_IT4dL6YOJ7DT-d2gxGkVr97ArZjCxrXJSFPCKSuSAvZ5DDyhrkZyvgMwUsoqsUStvDSt98UUgRzkgOkIEQ7L5x9zOxfbsdM73nuzhj5iHOdFuDTE6xR10J3i5f18OkM2lKPiQWTS62p36L4q6NFICklGhixW-14BA-WILiUqwSF7fr5lpLXsI_CYqL31i0grPLZ2Re9Fe0Qj9KsVcU8zwBuFm109u0OTu-GSeKP_nyFoOguAo5s9VxJ13FctuvDSLjP8Y2uOe6oh1GUl59P1Yjc3RtcOF5rrapay0A8yvEf4srSDoPd80GwspuGJrnVXrsflof3dE77Fh_XaRAOBTaxrU-W2WU8_SFdTmnCeK720HuDyU1_7iBpG35O9zFU8MoHRpg4HAbeMGHn_WBcp6PmJgiRo5mWBJD8ZvdjeZGxc8Zy3KO6bwKFdpJ_95dvcS95q3av-dlJsdHwYM1YGmIL1KN4OHi_IjyP0vGrThXcLqOVdvSxUK6TXrOs5mjsGXX_EIN8BEDl_Z1Q73tBc8v_1soGqOUcnHSlK_CYyoE3TsFF8UP1yUTaPiCeHbQk5uS5ciu-kg7jw-xy1%7D))<!--[Current flow](./diagrams/current-flow.puml)-->
+![Current flow](https://tinyurl.com/27xgyzws)<!--[Current flow](./diagrams/current-flow.puml)-->
 
 ## Get Started
 
