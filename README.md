@@ -16,7 +16,7 @@ Pastecrawler is an innovative solution designed to efficiently crawl and capture
 - **Configuration and Customization**: The system offers easy configuration of sources to crawl, storage settings, and event triggers to align with specific requirements.
 
 ## Current Flow
-![Current flow](https://tinyurl.com/27xgyzws)
+![Current flow](./diagrams/current-flow.png)
 
 ## Get Started
 
@@ -61,7 +61,7 @@ yarn test
 
 ## Add more crawlers
 
-![Add more crawlers](https://tinyurl.com/2y42ejxu)<!--[Add more crawlers](./diagrams/add-new-crawlers.puml)-->
+![Add more crawlers](./diagrams/add-new-crawlers.png)
 
 ### Steps
 
